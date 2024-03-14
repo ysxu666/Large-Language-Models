@@ -11,6 +11,27 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+
+# 这段代码定义了一个名为 AttentionMaskConverter 的数据类，其主要用途是在使用变换器模型（如基于Transformer的模型）时处理和转换注意力掩码（attention masks）。注意力掩码是用来决定模型中每个序列元素在计算注意力时应考虑的其他元素的一种方法。
+
+# 下面是代码中的主要功能点：
+
+# 类 AttentionMaskConverter：
+
+# 该类允许用户创建因果（uni-directional）的4维掩码或带滑动窗口的4维掩码。
+# 它还可以将2维的注意力掩码（形状为 batch_size, query_length）转换为4维掩码（形状为 batch_size, 1, query_length, key_value_length）。
+# 参数：
+
+# is_causal：布尔值，表示是否创建因果掩码。
+# sliding_window：（可选）整数，如果定义，则会创建带滑动窗口的掩码。
+# 方法：
+
+# to_causal_4d：创建4维的因果注意力掩码，用于因果（单向）注意力机制。
+# to_4d：将2维注意力掩码转换为4维。
+# _make_causal_mask 和 _expand_mask 是静态方法，用于辅助上述方法创建和展开掩码。
+# 其他函数：
+
+# _prepare_4d_causal_attention_mask 和相关的几个函数是工具函数，用于在特定情况下创建或准备适当的注意力掩码。
 from dataclasses import dataclass
 from typing import List, Optional, Tuple, Union
 

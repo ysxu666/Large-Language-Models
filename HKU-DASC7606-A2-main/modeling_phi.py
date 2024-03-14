@@ -368,7 +368,7 @@ class PhiAttention(nn.Module):
 
         # Queries and keys upcast to fp32 is required by Phi-2 to avoid overflow
         attn_weights = torch.matmul(
-            "Write Your Code Here", "Write Your Code Here"
+            query_states, key_states.transpose(-2, -1)
         ) / math.sqrt(self.head_dim)
 
         if attn_weights.size() != (bsz, self.num_heads, q_len, kv_seq_len):
@@ -388,7 +388,9 @@ class PhiAttention(nn.Module):
         attn_weights = nn.functional.softmax(attn_weights, dim=-1, dtype=torch.float32).to(value_states.dtype)
         attn_weights = nn.functional.dropout(attn_weights, p=self.attention_dropout, training=self.training)
 
-        attn_output = torch.matmul("Write Your Code Here", "Write Your Code Here")
+        # 使用注意力权重计算最终的注意力输出
+        attn_output = torch.matmul(attn_weights, value_states)
+
 
         if attn_output.size() != (bsz, self.num_heads, q_len, self.head_dim):
             raise ValueError(
@@ -458,7 +460,7 @@ class PhiDecoderLayer(nn.Module):
         attn_outputs = self.resid_dropout(attn_outputs)
 
         feed_forward_hidden_states = self.resid_dropout(self.mlp(hidden_states))
-        hidden_states = attn_outputs + feed_forward_hidden_states + "Write Your Code Here"
+        hidden_states = attn_outputs + feed_forward_hidden_states + residual
         outputs = (hidden_states,)
 
         if output_attentions:

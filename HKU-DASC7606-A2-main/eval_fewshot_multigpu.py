@@ -263,7 +263,7 @@ def main():
 
         target = " {}".format(answer)
         encoding = preprocess([source], [target], tokenizer)
-        
+        #task 6
         with torch.no_grad():
             outputs = model(**encoding, labels=encoding["labels"])
             log_likelihood = outputs.logits[torch.arange(outputs.logits.size(0)), encoding["labels"]].sum(-1)

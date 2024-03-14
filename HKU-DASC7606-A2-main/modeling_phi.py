@@ -15,7 +15,24 @@
 
 """ PyTorch Phi model."""
 
+# PhiRotaryEmbedding 和相关类：
 
+# 这些类用于实现 Rotary Positional Embedding，它是一种用于改进 Transformer 模型对位置信息处理的方法。
+# PhiMLP：
+
+# 一个多层感知机（MLP），用于 Transformer 的每一层中的前馈网络部分。
+# PhiAttention：
+
+# 实现了多头自注意力机制。它包括查询（Q）、键（K）和值（V）的线性投影，以及用于生成最终注意力输出的稠密层。
+# PhiDecoderLayer：
+
+# 构成模型主体的单个解码器层，包含一个自注意力层和一个MLP层。
+# PhiModel：
+
+# 整个模型的核心，包含一个词嵌入层和多个 PhiDecoderLayer 层。
+# PhiForCausalLM：
+
+# 适用于因果语言建模的 Phi 模型。它在基本的 PhiModel 基础上添加了一个用于生成预测词概率的线性层。
 import math
 from typing import List, Optional, Tuple, Union
 

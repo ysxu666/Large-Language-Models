@@ -2,7 +2,27 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import torch
 
+# Cache 类（基类）：
 
+# 这是一个抽象基类，定义了所有缓存类应有的基本方法。
+# update 方法用于更新缓存中的键和值状态。
+# get_seq_length 返回缓存中的序列长度。
+# get_max_length 返回缓存中的最大序列长度。
+# get_usable_length 返回给定新输入序列长度的可用缓存长度。
+# DynamicCache 类：
+
+# 这是一个动态增长的缓存，用于生成模型。
+# 它通过列表存储每个层的键和值状态，其形状为 [batch_size, num_heads, seq_len, head_dim]。
+# 提供了索引和迭代支持，以及更新和获取序列长度的方法。
+# update 方法在这里实现了，用于添加新的键和值状态到缓存中。
+# 不限制缓存大小，因此不实现 get_max_length。
+# SinkCache 类：
+
+# 这是一种特殊类型的缓存，基于“注意力汇聚点”（Attention Sinks）的概念。
+# 允许模型在超出其上下文窗口长度时继续生成，但会丢弃过去的token。
+# 同样通过列表存储每个层的键和值状态。
+# 包含了特殊的更新逻辑，以处理窗口长度和汇聚点token。
+# update 方法不仅更新缓存，还可以处理旋转位置嵌入（RoPE），这在处理部分旋转的位置嵌入时特别重要。
 class Cache:
     """
     Base, abstract class for all caches. The actual data structure is specific to each subclass.

@@ -212,8 +212,8 @@ class PhiMLP(nn.Module):
         super().__init__()
         self.config = config
         self.activation_fn = ACT2FN[config.hidden_act]
-        self.fc1 = nn.Linear("Write Your Code Here", config.intermediate_size)
-        self.fc2 = nn.Linear(config.intermediate_size, "Write Your Code Here")
+        self.fc1 = nn.Linear(config.hidden_size, config.intermediate_size)
+        self.fc2 = nn.Linear(config.intermediate_size, config.hidden_size)
 
     def forward(self, hidden_states: torch.Tensor) -> torch.Tensor:
         hidden_states = self.fc1(hidden_states)
@@ -266,10 +266,10 @@ class PhiAttention(nn.Module):
                 f" and `num_heads`: {self.num_heads})."
             )
 
-        self.q_proj = nn.Linear("Write Your Code Here", self.num_heads * self.head_dim, bias=True)
-        self.k_proj = nn.Linear("Write Your Code Here", self.num_key_value_heads * self.head_dim, bias=True)
-        self.v_proj = nn.Linear("Write Your Code Here", self.num_key_value_heads * self.head_dim, bias=True)
-        self.dense = nn.Linear(self.num_heads * self.head_dim, "Write Your Code Here", bias=True)
+        self.q_proj = nn.Linear(config.hidden_size, self.num_heads * self.head_dim, bias=True)
+        self.k_proj = nn.Linear(config.hidden_size, self.num_key_value_heads * self.head_dim, bias=True)
+        self.v_proj = nn.Linear(config.hidden_size, self.num_key_value_heads * self.head_dim, bias=True)
+        self.dense = nn.Linear(self.num_heads * self.head_dim, config.hidden_size, bias=True)
 
         self.qk_layernorm = config.qk_layernorm
         if self.qk_layernorm:

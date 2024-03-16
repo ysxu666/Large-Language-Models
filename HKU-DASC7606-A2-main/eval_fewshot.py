@@ -257,7 +257,7 @@ def main():
 
         with torch.no_grad():
             # task 6
-            outputs = model(**encoding, labels=encoding["labels"])
+            outputs = model(**encoding)
             log_likelihood = outputs.logits[torch.arange(outputs.logits.size(0)), encoding["labels"]].sum(-1)
 
         print("Saving results to {}".format(output_file))

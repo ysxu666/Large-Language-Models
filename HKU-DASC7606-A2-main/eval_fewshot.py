@@ -263,7 +263,10 @@ def main():
         with torch.no_grad():
             # task 6
             outputs = model(**encoding)
-            log_likelihood = outputs.logits[torch.arange(outputs.logits.size(0)), encoding["labels"]].sum(-1)
+            logits = outputs.logits
+            labels = encoding["labels"]
+            log_likelihood = torch.gather(logits, 1, labels.unsqueeze(1)).squeeze().sum()  # 计算对数似然
+
 
         print("Saving results to {}".format(output_file))
         with open(output_file, "w", encoding="utf-8") as f:

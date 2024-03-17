@@ -59,6 +59,8 @@ def get_arc_problems(data_path="data/ARC-Easy-test.jsonl"):
                     "label": label,
                     "answerKey": json_obj["answerKey"],
                 })
+    print(f"Dataset size: {len(dataset)}")
+
     return dataset
 
 
@@ -108,6 +110,7 @@ def llm_embedder(llm, sentences, is_query=True):
 
     # Encode
     sentence_embeddings = llm.encode(sentences)
+    print(f"Sentence embeddings size: {sentence_embeddings.shape}")
     return sentence_embeddings
 
 def candidate_answers_formating(texts, labels):
@@ -214,6 +217,8 @@ def preprocess(
     labels = copy.deepcopy(input_ids)
     for label, source_len in zip(labels, sources_tokenized["input_ids_lens"]):
         label[:source_len] = IGNORE_INDEX
+    print(f"Input IDs size: {input_ids.size()}")
+    print(f"Labels size: {labels.size()}")
     return dict(input_ids=torch.stack(input_ids).to(device), labels=torch.stack(labels).to(device))
 
 
@@ -234,6 +239,7 @@ def main():
 
     demonstrations = load_all_demonstrations(args.data_path.replace("test", "train").replace("validation", "train"))
     demonstration_embeddings = llm_embedder(embedder, [d[0] for d in demonstrations], False) # ndarray: [n_demons, n_dim]
+    print(f"Demonstration embeddings size: {demonstration_embeddings.shape}")
 
     for i in tqdm(range(num_samples), ncols=0, total=num_samples):
         output_file = args.output_path + '/{}.jsonl'.format(args.start_index + i)

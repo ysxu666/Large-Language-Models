@@ -217,8 +217,7 @@ def preprocess(
     labels = copy.deepcopy(input_ids)
     for label, source_len in zip(labels, sources_tokenized["input_ids_lens"]):
         label[:source_len] = IGNORE_INDEX
-    print(f"Input IDs size: {input_ids.size()}")
-    print(f"Labels size: {labels.size()}")
+
     return dict(input_ids=torch.stack(input_ids).to(device), labels=torch.stack(labels).to(device))
 
 

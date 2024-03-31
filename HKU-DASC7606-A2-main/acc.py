@@ -50,7 +50,7 @@ if __name__ == "__main__":
         total += 1
     print("({}) Acc: {} ({} / {})".format(prediction_path, correct / total, correct, total))
 
-这个JSONL文件中的每个对象包含了对单个问题的评估结果。每个键（key）代表的意义如下：
+#这个JSONL文件中的每个对象包含了对单个问题的评估结果。每个键（key）代表的意义如下：
 
 # 1. **`id`**: 唯一标识符，用于标识特定的问题。在这个例子中，`"Mercury_SC_407689"`是问题的唯一ID。
 

@@ -120,6 +120,8 @@ def candidate_answers_formating(texts, labels):
 # task 4
 def example_formating(question, answer=None, candidate_answers=None, prompt_type="v2.0"):
     exam_instruction = "Instruction: Read the following question carefully and select the most appropriate answer."
+    context_notice = "Context: This question is from a grade-school level science test, designed to assess the natural science understanding of school-aged children."
+    difficulty_notice = "Notice: This question might belong to the Challenge Set, requiring advanced reasoning beyond simple retrieval or word co-occurrence methods."
     if prompt_type == "v1.0":
         if answer is not None:
             prompt = f"Question: {question}\nCandidate answers: {candidate_answers}\nGold answer: {answer}"
@@ -135,7 +137,11 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
             prompt =f"{exam_instruction}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer: {answer}"
         else:
             prompt = f"{exam_instruction}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer:"    
-
+    elif prompt_type == "v4.0":
+        if answer is not None:
+            prompt = f"{exam_instruction}\n{context_notice}\n{difficulty_notice}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer: {answer}"
+        else:
+            prompt = f"{exam_instruction}\n{context_notice}\n{difficulty_notice}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer:"
     else:
         raise NotImplementedError
     return prompt

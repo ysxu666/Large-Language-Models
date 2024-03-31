@@ -134,6 +134,29 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
         raise NotImplementedError
     return prompt
 
+# Prompt的生成过程
+# 在这个脚本中，"prompt"的生成是一个关键步骤，它直接影响模型的输入和因此的表现。生成"prompt"的主要函数是generate_prompt，它的作用是根据给定的问题和一系列示例（demonstrations），构建一个用于模型输入的文本。
+
+# 1. 函数参数
+# question: 当前需要回答的问题。
+# candidate_answers: 当前问题的候选答案列表。
+# prompt_type: "prompt"的格式类型，影响最终"prompt"的结构。
+# N: 在"prompt"中要使用的示例（demonstrations）的数量。
+# demonstrations: 一系列示例，每个示例包括问题、候选答案、正确答案等信息。
+# demonstration_embeddings: 示例的嵌入表示，用于寻找与当前问题最相似的示例。
+# embedder: 用于生成嵌入表示的模型。
+# top_k: 是否只选取最相似的N个示例。
+# top_k_reverse: 是否反转最相似示例的顺序。
+# 2. "Prompt"的构建过程
+# 相似性匹配: 如果启用top_k，则首先计算当前问题与所有示例之间的相似度，然后根据相似度选择最相似的N个示例。如果启用top_k_reverse，则会反转所选示例的顺序。
+
+# 格式化: 对于每个选定的示例，使用example_formating函数将问题、候选答案和正确答案格式化成一定格式的文本。这个格式由prompt_type参数控制。
+
+# 组合: 将所有选定示例的文本和当前问题的文本组合起来，形成最终的"prompt"。
+
+# 使用"Prompt"
+# 生成的"prompt"将作为模型的输入，模型会基于这个输入生成或预测一个答案。在这个脚本中，generate_prompt函数的输出被用作preprocess函数的输入之一，preprocess函数进一步处理这些文本以适配模型的输入格式。
+
 def generate_prompt(question, candidate_answers, prompt_type, N,
                     demonstrations, demonstration_embeddings, embedder,
                     top_k=False, top_k_reverse=False):

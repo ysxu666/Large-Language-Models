@@ -1,6 +1,8 @@
 import os
 import argparse
 import json
+
+
 # /**
 # 这段代码是一个Python脚本，用于评估多选题回答模型的准确度。具体来说，它读取模型生成的预测结果，并计算模型在答案预测上的准确率。下面是代码的详细解读：
 
@@ -47,3 +49,21 @@ if __name__ == "__main__":
             correct += 1
         total += 1
     print("({}) Acc: {} ({} / {})".format(prediction_path, correct / total, correct, total))
+
+这个JSONL文件中的每个对象包含了对单个问题的评估结果。每个键（key）代表的意义如下：
+
+# 1. **`id`**: 唯一标识符，用于标识特定的问题。在这个例子中，`"Mercury_SC_407689"`是问题的唯一ID。
+
+# 2. **`log_likelihood`**: 对数似然值，表示模型给出正确答案的概率的对数。在机器学习和统计中，对数似然是一个重要的度量，用来评估模型对数据的拟合程度。这个值越高，表示模型认为给定的答案越有可能是正确的。在这个例子中，`-4.67886209487915`是模型给出的对数似然值。
+
+# 3. **`question`**: 问题文本。这是模型需要回答的问题。例如，`"Marshall researched some of the changes on Earth that happen over a long time. Which event most likely causes the slowest change to the surface of Earth?"` 是一个关于地球表面变化的问题。
+
+# 4. **`candidate_answers`**: 候选答案列表，以一定的格式（通常是选项标签和答案文本的组合）给出。在这个例子中，有四个候选答案：`"(A) earthquake (B) landslide (C) volcano (D) wind"`。
+
+# 5. **`answer`**: 实际选择的答案文本。这是模型根据问题内容和候选答案列表给出的答案。注意，这个答案可能不一定是正确的答案。在这个例子中，模型选择了`"earthquake"`作为答案。
+
+# 6. **`label`**: 实际选择的答案的标签。这是模型选择的答案对应的选项标签。在这个例子中，模型选择了标签`"A"`对应的答案。
+
+# 7. **`answerKey`**: 正确答案的标签。这是问题的正确答案对应的选项标签，用于评估模型性能。在这个例子中，正确答案的标签是`"D"`。
+
+# 这些键值提供了对每个问题评估结果的详细描述，包括问题本身、候选答案、模型选择的答案及其对数似然值，以及正确答案的标签，使得可以详细分析模型的性能。

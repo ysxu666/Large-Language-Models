@@ -44,7 +44,7 @@ from torch.nn import CrossEntropyLoss
 
 from transformers.activations import ACT2FN
 from cache_utils import Cache, DynamicCache
-from modeling_attn_mask_utils import _prepare_4d_causal_attention_mask
+from modeling_attn_mask_utils import _prepare_4d_causal_attention_mask,_prepare_4d_causal_attention_mask_for_sdpa 
 from transformers.modeling_outputs import (
     BaseModelOutputWithPast,
     CausalLMOutputWithPast,
@@ -678,7 +678,7 @@ class PhiModel(PhiPreTrainedModel):
         inputs_embeds = self.embed_dropout(inputs_embeds)
 
         # 4d mask is passed through the layers
-        attention_mask = _prepare_4d_causal_attention_mask(
+        attention_mask = _prepare_4d_causal_attention_mask_for_sdpa(
             attention_mask, (batch_size, seq_length), inputs_embeds, past_key_values_length
         )
 

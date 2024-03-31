@@ -119,6 +119,7 @@ def candidate_answers_formating(texts, labels):
 
 # task 4
 def example_formating(question, answer=None, candidate_answers=None, prompt_type="v2.0"):
+    exam_instruction = "Instruction: Read the following question carefully and select the most appropriate answer."
     if prompt_type == "v1.0":
         if answer is not None:
             prompt = f"Question: {question}\nCandidate answers: {candidate_answers}\nGold answer: {answer}"
@@ -129,6 +130,11 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
             prompt = f"Question: {question}\nOptions: {candidate_answers}\nCorrect Answer: {answer}"
         else:
             prompt = f"Question: {question}\nOptions: {candidate_answers}\nCorrect Answer:"
+    elif prompt_type == "v3.0":
+        if answer is not None:
+            prompt =f"{exam_instruction}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer: {answer}"
+        else:
+            prompt = f"{exam_instruction}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer:"    
 
     else:
         raise NotImplementedError

@@ -143,6 +143,11 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
             prompt = f"{exam_instruction}\n{context_notice}\n{difficulty_notice}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer: {answer}"
         else:
             prompt = f"{exam_instruction}\n{context_notice}\n{difficulty_notice}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer:"
+    elif prompt_type == "v5.0":
+        if answer is not None:
+            prompt = f"{exam_instruction}\n{difficulty_notice}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer: {answer}"
+        else:
+            prompt = f"{exam_instruction}\n{difficulty_notice}\nQuestion: {question}\nOptions: {candidate_answers}\nCorrect Answer:"            
     else:
         raise NotImplementedError
     return prompt

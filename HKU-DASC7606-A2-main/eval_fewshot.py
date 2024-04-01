@@ -122,6 +122,7 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
     exam_instruction = "Instruction: Read the following question carefully and select the most appropriate answer."
     context_notice = "Context: This question is from a grade-school level science test, designed to assess the natural science understanding of school-aged children."
     difficulty_notice = "Notice: This question might belong to the Challenge Set, requiring advanced reasoning beyond simple retrieval or word co-occurrence methods."
+    print("prompt_type is "+prompt_type)
     if prompt_type == "v1.0":
         if answer is not None:
             prompt = f"Question: {question}\nCandidate answers: {candidate_answers}\nGold answer: {answer}"

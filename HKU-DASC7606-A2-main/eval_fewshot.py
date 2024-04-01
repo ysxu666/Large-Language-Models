@@ -124,7 +124,7 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
     context_notice = "Context: This question is from a grade-school level science test, designed to assess the natural science understanding of school-aged children."
     context_notice2 = "Context: This question is a natural science problem."
     difficulty_notice = "Notice: This question might belong to the Challenge Set, requiring advanced reasoning beyond simple retrieval or word co-occurrence methods."
-    print("prompt_type is "+prompt_type)
+    # print("prompt_type is "+prompt_type)
     if prompt_type == "v1.0":
         if answer is not None:
             prompt = f"Question: {question}\nCandidate answers: {candidate_answers}\nGold answer: {answer}"
@@ -159,7 +159,12 @@ def example_formating(question, answer=None, candidate_answers=None, prompt_type
         if answer is not None:
             prompt = f"{exam_instruction2}\n{context_notice2}\nQuestion: {question}\nOptions: {candidate_answers}\nGold  Answer: {answer}"
         else:
-            prompt = f"{exam_instruction2}\n{context_notice2}\nQuestion: {question}\nOptions: {candidate_answers}\nGold  Answer:"                 
+            prompt = f"{exam_instruction2}\n{context_notice2}\nQuestion: {question}\nOptions: {candidate_answers}\nGold  Answer:"
+    elif prompt_type == "v8.0":
+        if answer is not None:
+            prompt = f"Question: {question}\nGold answer: {answer}"
+        else:
+            prompt = f"Question: {question}\nGold answer:"            
     else:
         raise NotImplementedError
     return prompt

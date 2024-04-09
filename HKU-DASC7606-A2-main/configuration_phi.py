@@ -130,7 +130,7 @@ class PhiConfig(PretrainedConfig):
         vocab_size=51200,
         hidden_size=2048,
         intermediate_size=8192,
-        num_hidden_layers=36,
+        num_hidden_layers=24,
         num_attention_heads=32,
         num_key_value_heads=None,
         resid_pdrop=0.0,

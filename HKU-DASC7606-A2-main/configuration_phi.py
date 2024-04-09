@@ -135,7 +135,7 @@ class PhiConfig(PretrainedConfig):
         num_key_value_heads=None,
         resid_pdrop=0.0,
         embd_pdrop=0.0,
-        attention_dropout=0.1,
+        attention_dropout=0.0,
         hidden_act="gelu_new",
         max_position_embeddings=2048,
         initializer_range=0.02,

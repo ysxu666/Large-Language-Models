@@ -14,16 +14,15 @@
 # limitations under the License.
 
 """ Phi model configuration"""
-# Phi模型是一种基于Transformer的大型语言模型，这个配置类用于存储和管理Phi模型的各种参数和设置。
+# 这些配置参数在不训练模型时的作用包括：
 
-# 主要内容包括：
-
-# PhiConfig 类：这个类继承自 PretrainedConfig，用于实例化Phi模型。它包含了定义模型架构的各种参数，如词汇表大小、隐藏层大小、中间层大小、隐藏层的数量、注意力头的数量等。
-# 模型参数设置：包括各种可选参数的默认值，如词汇表大小（vocab_size）默认为51200，隐藏层大小（hidden_size）默认为2048，隐藏层的数量（num_hidden_layers）默认为24，注意力头的数量（num_attention_heads）默认为32等。
-# 特殊功能参数：例如rope_theta和rope_scaling，这些参数用于配置模型中的Rotary Position Embeddings（RoPE），这是一种用于改善模型对位置信息处理的方法。
-# _rope_scaling_validation 方法：用于验证rope_scaling配置的合法性。
-# 预训练模型的链接：PHI_PRETRAINED_CONFIG_ARCHIVE_MAP变量提供了预训练模型的下载链接。
-# 总的来说，这个脚本为使用和定制Phi模型提供了一个详细和灵活的配置方式，使得用户可以根据自己的需求调整模型的参数。
+# vocab_size：定义模型的词汇表大小，影响模型可以处理的词汇数量。
+# hidden_size：定义隐藏层的维度，影响模型的表示能力和内存占用。
+# num_hidden_layers：定义模型中隐藏层的数量，影响模型的深度。
+# num_attention_heads：定义每个注意力层中的注意力头数量，影响注意力机制的细粒度程度。
+# max_position_embeddings：定义模型可以处理的最大序列长度，影响模型在推理时可以接受的输入长度。
+# use_cache：决定模型在推理时是否返回缓存的注意力键值对，以加速后续的推理过程。
+# output_hidden_states 和 output_attentions：控制模型是否返回中间隐藏状态和注意力权重，以便进行详细分析和调试。
 
 from transformers.configuration_utils import PretrainedConfig
 from transformers.utils import logging
